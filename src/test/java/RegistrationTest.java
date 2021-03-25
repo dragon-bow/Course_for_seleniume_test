@@ -62,8 +62,6 @@ public class RegistrationTest {
         driver.navigate().to(BASE_URL);
         driver.findElement(By.cssSelector(NEW_CUSTOMER_BUTTON)).click();
         Thread.sleep(500);
-        // ((JavascriptExecutor) driver).executeScript("document.querySelector('[name =tax_id]').value = '1'");
-
         driver.findElement(By.cssSelector(TAX_ID_INPUT)).sendKeys("1");
         driver.findElement(By.cssSelector(COMPANY_INPUT)).sendKeys(company);
         driver.findElement(By.cssSelector(FIRST_INPUT)).sendKeys(firstName);
@@ -71,8 +69,12 @@ public class RegistrationTest {
         driver.findElement(By.cssSelector(ADDRESS_INPUT)).sendKeys(adress);
         driver.findElement(By.cssSelector(POSTCODE_INPUT)).sendKeys("12722");
         driver.findElement(By.cssSelector(CITY_INPUT)).sendKeys(city);
-        selectCountry = new Select(driver.findElement(By.cssSelector(SELECTOR_CONTRY)));
-        selectCountry.selectByValue("US");
+        driver.findElement(By.cssSelector(".select2-selection__arrow b")).click();
+        driver.findElement(By.cssSelector(".select2-results__option[id*='US']")).click();
+        driver.findElement(By.cssSelector("select[name='zone_code']")).click();
+        wait.until((WebDriver d) ->d.findElement(By.cssSelector("select[name='zone_code'] option[value='AA']")));
+        driver.findElement(By.cssSelector("select[name='zone_code'] option[value='AA']")).click();
+        driver.findElement(By.cssSelector("select[name='zone_code']")).click();
         driver.findElement(By.cssSelector(EMAIL_INPUT)).sendKeys(email);
         driver.findElement(By.cssSelector(PHONE_INPUT)).sendKeys(phoneNumber);
         driver.findElement(By.cssSelector(PASSWORD_INPUT)).sendKeys(password);
